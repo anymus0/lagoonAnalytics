@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-const validateEthWallet = async (req: Request, res: Response, next: NextFunction) => {
+export const validateEthWallet = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (req.headers.ethWallet.slice(0, 2) === "0x") {
       next();
