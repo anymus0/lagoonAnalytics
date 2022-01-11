@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { strongRewardAnalytics } from "./../models/strongRewardAnalytic";
+import { strongRewardAnalytics } from "./../models/strongRewardAnalytic.js";
 
 const strongRewardAnalyticsSchema: mongoose.Schema<strongRewardAnalytics> = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
