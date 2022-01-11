@@ -14,11 +14,13 @@ router.get("/getEthWallet", (req: Request, res: Response) => {
   getEthWallet(req, res);
 });
 
-router.get("/addEthWallet", apiKeyAuth, validateEthWallet, (req: Request, res: Response) => {
+// POST /ethWallet/addEthWallet
+router.post("/addEthWallet", apiKeyAuth, validateEthWallet, (req: Request, res: Response) => {
   addEthWallet(req, res);
 });
 
-router.get("/deleteEthWallet", apiKeyAuth, validateEthWallet, (req: Request, res: Response) => {
+// DELETE /ethWallet/deleteEthWallet
+router.delete("/deleteEthWallet", apiKeyAuth, validateEthWallet, (req: Request, res: Response) => {
   deleteEthWallet(req, res);
 });
 
