@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { StrongRewardAnalytics } from "./../schemas/strongRewardAnalyticsSchema";
+import { StrongRewardAnalytics } from "./../schemas/strongRewardAnalyticsSchema.js";
 
-export const getAllRewardsByDate = async (req: Request, res: Response) => {
+export const getStrongAnalyticsByDate = async (req: Request, res: Response) => {
   try {
     const dateToFind: Date = new Date(req.params.dateToFind);
     const strongRewardAnalyticsByDate = await StrongRewardAnalytics.findOne({

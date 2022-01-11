@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { StrongRewardAnalytics } from "./../schemas/strongRewardAnalyticsSchema";
+import { StrongRewardAnalytics } from "./../schemas/strongRewardAnalyticsSchema.js";
 
-export const getAllRewards = async (req: Request, res: Response) => {
+export const getAllStrongAnalytics = async (req: Request, res: Response) => {
   try {
     const allStrongRewardAnalytics = await StrongRewardAnalytics.find(
       {}
