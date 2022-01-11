@@ -6,6 +6,7 @@ import ExpressMongoSanitize from "express-mongo-sanitize";
 import cors from "cors";
 import helmet from "helmet";
 // routes
+import ethWalletRoute from "./EthWallet/routes/index";
 import strongRoute from "./strong/routes/index.js";
 import defaultRoutes from "./global/routes/defaultRoutes.js";
 
@@ -25,6 +26,8 @@ app.use(helmet());
 app.use(ExpressMongoSanitize());
 // parse JSON
 app.use(express.json());
+// ethWaller routes
+app.use("/ethWallet", ethWalletRoute)
 // $STRONG routes
 app.use("/strong", strongRoute);
 // load default routes last
