@@ -10,7 +10,7 @@ import { deleteEthWallet } from "./../controllers/deleteEthWallet.js";
 const router = Router();
 
 // GET /ethWallet/getEthWallet
-router.get("/getEthWallet", (req: Request, res: Response) => {
+router.get("/getEthWallets", (req: Request, res: Response) => {
   getEthWallet(req, res);
 });
 
