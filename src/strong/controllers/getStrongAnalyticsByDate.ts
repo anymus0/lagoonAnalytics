@@ -3,9 +3,9 @@ import { StrongRewardAnalytics } from "./../schemas/strongRewardAnalyticsSchema.
 
 export const getStrongAnalyticsByDate = async (req: Request, res: Response) => {
   try {
-    const dateToFind: Date = new Date(req.params.dateToFind);
+    const dateToFind: Date = new Date(req.body.dateToFind);
     const strongRewardAnalyticsByDate = await StrongRewardAnalytics.findOne({
-      date: dateToFind,
+      date: { $gte: dateToFind },
     }).exec();
     if (
       strongRewardAnalyticsByDate === null ||

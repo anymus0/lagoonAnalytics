@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { getAllStrongAnalytics } from "./../controllers/getAllStrongAnalytics.js";
 import { getStrongAnalyticsByDate } from "./../controllers/getStrongAnalyticsByDate.js";
+import { addStrongAnalytics } from './../controllers/addStrongAnalytics.js'
 import { apiKeyAuth } from './../../global/middlewares/apiKeyAuth.js'
 
 const router = Router();
@@ -17,7 +18,7 @@ router.get("/getStrongAnalyticsByDate", (req: Request, res: Response) => {
 
 // POST /strong/addStrongAnalytics
 router.post("/addStrongAnalytics", apiKeyAuth, (req: Request, res: Response) => {
-  getStrongAnalyticsByDate(req, res);
+  addStrongAnalytics(req, res);
 });
 
 export default router;

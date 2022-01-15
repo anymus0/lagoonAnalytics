@@ -1,18 +1,28 @@
 import mongoose from 'mongoose';
 
+export interface serviceContractAnalytics {
+  _id: mongoose.Types.ObjectId,
+  numOfNodes: number;
+  unclaimedRewards: number;
+}
+
+export interface dailyAnalytics {
+  _id: mongoose.Types.ObjectId,
+  marketPriceinUSD: number;
+  allUnclaimedRewards: number;
+  allUnclaimedRewardsInUSD: number;
+  allClaimedRewards: number;
+  allClaimedRewardsInUSD: number;
+  allRewards: number;
+  allRewardsInUSD: number;
+  numOfAllNodes: number;
+  serviceV1: serviceContractAnalytics;
+  serviceV2: serviceContractAnalytics;
+}
+
 export interface strongRewardAnalytics {
   _id: mongoose.Types.ObjectId;
   date: Date;
-  marketPriceinUSD: number;
-  unclaimedRewards: number;
-  unclaimedRewardsInUSD: number;
-  claimedRewards: number;
-  claimedRewardsInUSD: number;
-  allRewards: number;
-  allRewardsInUSD: number;
-  numOfNodes: number;
-  serviceV1NumOfNodes: number;
-  serviceV1UnclaimedRewards: number;
-  serviceV2NumOfNodes: number;
-  serviceV2UnclaimedRewards: number;
+  analytics: dailyAnalytics;
+  differencesFromPreviousDay: dailyAnalytics | null;
 }
