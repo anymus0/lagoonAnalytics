@@ -64,8 +64,8 @@ export const addStrongAnalytics = async (req: Request, res: Response) => {
 
     // populate the 'differencesFromPreviousSnapshot' property if there was a previous day
     if (
-      strongAnalyticsOfPreviousSnapshotArr !== null ||
-      strongAnalyticsOfPreviousSnapshotArr !== undefined ||
+      strongAnalyticsOfPreviousSnapshotArr !== null &&
+      strongAnalyticsOfPreviousSnapshotArr !== undefined &&
       strongAnalyticsOfPreviousSnapshotArr.length > 0
     ) {
       const strongAnalyticsOfPreviousSnapshot =
