@@ -10,11 +10,11 @@ export const getStrongCryptocurrencyData = async () => {
     const strongCryptocurrencyDataRes = await fetch(url);
     if (!strongCryptocurrencyDataRes.ok)
       throw strongCryptocurrencyDataRes.headers;
-    const strongCryptocurrencyDataObj =
-      (await strongCryptocurrencyDataRes.json()) as CryptocurrencyData;
+    const strongCryptocurrencyDataArr =
+      (await strongCryptocurrencyDataRes.json()) as CryptocurrencyData[];
     const strongCryptocurrencyData: CryptocurrencyDataResponse = {
       success: true,
-      result: strongCryptocurrencyDataObj,
+      result: strongCryptocurrencyDataArr[0],
     };
     return strongCryptocurrencyData;
   } catch (error) {
