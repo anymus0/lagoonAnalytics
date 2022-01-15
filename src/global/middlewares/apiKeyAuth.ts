@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 export const apiKeyAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (req.headers.API_KEY === process.env.API_KEY) {
+    if (req.body.API_KEY === process.env.API_KEY) {
       next();
     } else {
       res
@@ -10,7 +10,7 @@ export const apiKeyAuth = async (req: Request, res: Response, next: NextFunction
         .json({
           success: false,
           message: "API key does not match, access denied!",
-          details: `The following API key was rejected: ${req.headers.API_KEY}`,
+          details: `The following API key was rejected: ${req.body.API_KEY}`,
           result: null,
         })
         .end();
