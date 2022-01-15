@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 export interface strongRewardAnalytics {
-  _id: typeof mongoose.Schema.Types.ObjectId;
+  _id: mongoose.Types.ObjectId;
   date: Date;
   marketPriceinUSD: number;
   unclaimedRewards: number;
