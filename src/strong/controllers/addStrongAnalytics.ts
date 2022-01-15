@@ -65,9 +65,6 @@ export const addStrongAnalytics = async (req: Request, res: Response) => {
     const strongAnalyticsOfPreviousDay = await StrongRewardAnalytics.findOne({
       date: { $gte: prevoiusDay },
     }).exec();
-    console.log(prevoiusDay);
-    console.log(strongAnalyticsOfPreviousDay);
-
 
     // populate the 'differencesFromPreviousDay' property if there was a previous day
     if (strongAnalyticsOfPreviousDay) {
