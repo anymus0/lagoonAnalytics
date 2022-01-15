@@ -70,7 +70,6 @@ export const getServiceV2UnclaimedRewards = async (walletAddress: string) => {
     );
     let unclaimedRewardsFromV2 = 0;
     for (let nodeId = 1; nodeId <= entityNodeCount; nodeId++) {
-      console.log(nodeId);
       const rewardOfNodeIdInWei: BigNumber = await strongServiceV2Contract.getNodeReward(walletAddress, nodeId);
       const rewardOfNodeId: number = Number.parseFloat(ethers.utils.formatUnits(rewardOfNodeIdInWei, 18));
       unclaimedRewardsFromV2 += rewardOfNodeId;
