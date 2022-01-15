@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import {
   serviceContractAnalytics,
-  dailyAnalytics,
+  analyticsSnapshot,
   strongRewardAnalytics,
 } from "./../models/strongRewardAnalytic.js";
 
@@ -12,7 +12,7 @@ const serviceContractAnalyticsSchema: mongoose.Schema<serviceContractAnalytics> 
     unclaimedRewards: { type: Number, required: true },
   });
 
-const dailyAnalyticsSchema: mongoose.Schema<dailyAnalytics> =
+const dailyAnalyticsSchema: mongoose.Schema<analyticsSnapshot> =
   new mongoose.Schema({
     _id: mongoose.Schema.Types.ObjectId,
     marketPriceinUSD: { type: Number, required: true },
@@ -32,7 +32,7 @@ const strongRewardAnalyticsSchema: mongoose.Schema<strongRewardAnalytics> =
     _id: mongoose.Schema.Types.ObjectId,
     date: { type: Date, required: true },
     analytics: { type: dailyAnalyticsSchema, required: true },
-    differencesFromPreviousDay: { type: dailyAnalyticsSchema, required: false },
+    differencesFromPreviousSnapshot: { type: dailyAnalyticsSchema, required: false },
   });
 
 export const StrongRewardAnalytics: mongoose.Model<strongRewardAnalytics> =

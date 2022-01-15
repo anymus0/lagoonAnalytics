@@ -6,7 +6,7 @@ export interface serviceContractAnalytics {
   unclaimedRewards: number;
 }
 
-export interface dailyAnalytics {
+export interface analyticsSnapshot {
   _id: mongoose.Types.ObjectId,
   marketPriceinUSD: number;
   allUnclaimedRewards: number;
@@ -23,6 +23,6 @@ export interface dailyAnalytics {
 export interface strongRewardAnalytics {
   _id: mongoose.Types.ObjectId;
   date: Date;
-  analytics: dailyAnalytics;
-  differencesFromPreviousDay: dailyAnalytics | null;
+  analytics: analyticsSnapshot;
+  differencesFromPreviousSnapshot: analyticsSnapshot | null;
 }

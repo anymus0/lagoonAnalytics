@@ -58,16 +58,20 @@ export const addStrongAnalytics = async (req: Request, res: Response) => {
     const allRewardsInUSD = allRewards * strongCryptoData.result.current_price;
     const numOfAllNodes = serviceV1NumOfNodes + serviceV2NumOfNodes;
 
-    // get strongAnalytics of the previous day
-    const prevoiusDay = new Date();
-    prevoiusDay.setDate(prevoiusDay.getDate() - 1);
-    prevoiusDay.setHours(0, 0, 0)
-    const strongAnalyticsOfPreviousDay = await StrongRewardAnalytics.findOne({
-      date: { $gte: prevoiusDay },
-    }).exec();
+    // get strongAnalytics of the previous snapshot
+    const strongAnalyticsOfPreviousSnapshotArr =
+      await StrongRewardAnalytics.find({}).exec();
 
-    // populate the 'differencesFromPreviousDay' property if there was a previous day
-    if (strongAnalyticsOfPreviousDay) {
+    // populate the 'differencesFromPreviousSnapshot' property if there was a previous day
+    if (
+      strongAnalyticsOfPreviousSnapshotArr !== null ||
+      strongAnalyticsOfPreviousSnapshotArr !== undefined ||
+      strongAnalyticsOfPreviousSnapshotArr.length > 0
+    ) {
+      const strongAnalyticsOfPreviousSnapshot =
+        strongAnalyticsOfPreviousSnapshotArr[
+          strongAnalyticsOfPreviousSnapshotArr.length - 1
+        ];
       const strongAnalytics: strongRewardAnalytics = {
         _id: new mongoose.Types.ObjectId(),
         date: new Date(),
@@ -92,48 +96,51 @@ export const addStrongAnalytics = async (req: Request, res: Response) => {
             unclaimedRewards: serviceV2UnclaimedRewards,
           },
         },
-        differencesFromPreviousDay: {
+        differencesFromPreviousSnapshot: {
           _id: new mongoose.Types.ObjectId(),
           marketPriceinUSD:
             strongCryptoData.result.current_price -
-            strongAnalyticsOfPreviousDay.analytics.marketPriceinUSD,
+            strongAnalyticsOfPreviousSnapshot.analytics.marketPriceinUSD,
           allUnclaimedRewards:
             allUnclaimedRewards -
-            strongAnalyticsOfPreviousDay.analytics.allUnclaimedRewards,
+            strongAnalyticsOfPreviousSnapshot.analytics.allUnclaimedRewards,
           allUnclaimedRewardsInUSD:
             allUnclaimedRewardsInUSD -
-            strongAnalyticsOfPreviousDay.analytics.allUnclaimedRewardsInUSD,
+            strongAnalyticsOfPreviousSnapshot.analytics
+              .allUnclaimedRewardsInUSD,
           allClaimedRewards:
             claimedRewards -
-            strongAnalyticsOfPreviousDay.analytics.allClaimedRewards,
+            strongAnalyticsOfPreviousSnapshot.analytics.allClaimedRewards,
           allClaimedRewardsInUSD:
             allClaimedRewardsInUSD -
-            strongAnalyticsOfPreviousDay.analytics.allClaimedRewardsInUSD,
+            strongAnalyticsOfPreviousSnapshot.analytics.allClaimedRewardsInUSD,
           allRewards:
-            allRewards - strongAnalyticsOfPreviousDay.analytics.allRewards,
+            allRewards - strongAnalyticsOfPreviousSnapshot.analytics.allRewards,
           allRewardsInUSD:
             allRewardsInUSD -
-            strongAnalyticsOfPreviousDay.analytics.allRewardsInUSD,
+            strongAnalyticsOfPreviousSnapshot.analytics.allRewardsInUSD,
           numOfAllNodes:
             numOfAllNodes -
-            strongAnalyticsOfPreviousDay.analytics.numOfAllNodes,
+            strongAnalyticsOfPreviousSnapshot.analytics.numOfAllNodes,
           serviceV1: {
             _id: new mongoose.Types.ObjectId(),
             numOfNodes:
               serviceV1NumOfNodes -
-              strongAnalyticsOfPreviousDay.analytics.serviceV1.numOfNodes,
+              strongAnalyticsOfPreviousSnapshot.analytics.serviceV1.numOfNodes,
             unclaimedRewards:
               serviceV1UnclaimedRewards -
-              strongAnalyticsOfPreviousDay.analytics.serviceV1.unclaimedRewards,
+              strongAnalyticsOfPreviousSnapshot.analytics.serviceV1
+                .unclaimedRewards,
           },
           serviceV2: {
             _id: new mongoose.Types.ObjectId(),
             numOfNodes:
               serviceV2NumOfNodes -
-              strongAnalyticsOfPreviousDay.analytics.serviceV2.numOfNodes,
+              strongAnalyticsOfPreviousSnapshot.analytics.serviceV2.numOfNodes,
             unclaimedRewards:
               serviceV2UnclaimedRewards -
-              strongAnalyticsOfPreviousDay.analytics.serviceV2.unclaimedRewards,
+              strongAnalyticsOfPreviousSnapshot.analytics.serviceV2
+                .unclaimedRewards,
           },
         },
       };
@@ -150,7 +157,7 @@ export const addStrongAnalytics = async (req: Request, res: Response) => {
         result: strongAnalytics,
       });
     } else {
-      // set 'differencesFromPreviousDay' to null if there is no previous day
+      // set 'differencesFromPreviousSnapshot' to null if there is no previous day
       const strongAnalytics: strongRewardAnalytics = {
         _id: new mongoose.Types.ObjectId(),
         date: new Date(),
@@ -175,7 +182,7 @@ export const addStrongAnalytics = async (req: Request, res: Response) => {
             unclaimedRewards: serviceV2UnclaimedRewards,
           },
         },
-        differencesFromPreviousDay: null,
+        differencesFromPreviousSnapshot: null,
       };
       // save strongAnalytics into DB
       const newStrongRewardAnalytics = new StrongRewardAnalytics(
