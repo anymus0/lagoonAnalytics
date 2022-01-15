@@ -4,7 +4,7 @@ import { Router } from "express";
 const router = Router();
 
 router.get("/", (req, res) => {
-  res.send("This is the API for videoderify");
+  res.send("This is the API for lagoonAnalytics");
 });
 
 // Every route that is unused will redirect to page 404
