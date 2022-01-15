@@ -74,7 +74,6 @@ export const getServiceV2UnclaimedRewards = async (walletAddress: string) => {
       const rewardOfNodeIdInWei: BigNumber = await strongServiceV2Contract.getNodeReward(walletAddress, nodeId);
       const rewardOfNodeId: number = Number.parseFloat(ethers.utils.formatUnits(rewardOfNodeIdInWei, 18));
       unclaimedRewardsFromV2 += rewardOfNodeId;
-      console.log(`Rew of node#${nodeId}: ${rewardOfNodeIdInWei}`);
     }
     return unclaimedRewardsFromV2;
   } catch (error) {
