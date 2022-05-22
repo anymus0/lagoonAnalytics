@@ -5,6 +5,8 @@
 - `PORT`
 - `API_KEY`
 - `DB_URI`
+- `NODE_RPC_URL`
+- `NODE_ENV`
 
 ### Env variables
 Copy `.env.example` into `.env` and fill in the variables with your own setup.
